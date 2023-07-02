@@ -1,0 +1,86 @@
+﻿@using System.Collections;
+@using Jendamark_Automation.Models;
+@model ViewModel;
+ 
+
+
+<div class="text-center">
+    <h1 class="display-4" style="text-align:center;">Its all about operations</h1>
+</div>
+
+<table>
+    <tr>
+        <th>OperationID</th>
+        <th>Name</th>
+    </tr>
+    @foreach (var item in Model.Operations)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OperationID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.OperationID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.OperationID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.OperationID">Delete</a>
+            </td>
+        </tr>
+        
+    }
+</table>
+<button class="Add-New-Device-Button" onclick="openNewDeviceForm()">Add New Device</button>
+<button class="Add-New-Operation-Button" onclick="openNewOperationForm()">Add New Operation</button>
+
+
+
+
+<div class="form-popup" id="NewDeviceForm">
+  <form action="/Home/SaveDevice" class="form-container" method="post">
+    <h1>New Device</h1>
+
+    <label for="Name"><b>Name</b></label>
+    <input type="text" placeholder="Enter Device Name" name="Name" required>
+
+    <label for="DeviceType"><b>DeviceType</b></label>
+    <select name="DeviceTypes" id="DeviceTypes">
+    <option value="0">BarcodeScanner</option>
+    <option value="1">Printer</option>
+    <option value="2">Camera</option>
+    <option value="3">SocketTray</option>
+  </select>
+
+
+    <button type="submit" class="btn">Save</button>
+    <button type="button" class="btn cancel" onclick="closeNewDeviceForm()">Close</button>
+  </form>
+</div>
+
+
+<div class="form-popup" id="NewOperationForm">
+  <form action="/Home/SaveOperation" class="form-container" method="post">
+    <h1>New Operation</h1>
+
+    <label for="Name"><b>Name</b></label>
+    <input type="text" placeholder="Enter Operation Name" name="Name" required>
+    <label for="Devices"><b>Devices</b></label>
+    <select name="Devices" id="Devices">
+   
+    @foreach(var device in Model.Devices)
+    {
+        <option value="@device.DeviceID">@device.Name</option>
+    }
+    </select>
+    <button type="submit" class="btn">Save</button>
+    <button type="button" class="btn cancel" onclick="closeNewOperationForm()">Close</button>
+  </form>
+</div>
+
+
+
+
+<link href="~/css/FormStyles.css" rel="stylesheet" type="text/css" />
+<link href="~/css/TableStyles.css" rel="stylesheet" type="text/css" />
+<script src="/js/site.js"  type="text/javascript"></script>
