@@ -9,6 +9,7 @@ namespace Jendamark_Automation.Domain
     public class DeviceRepository : IDevicesRepository
     {
         List<Device> _devices;
+        public static int Id = 0;
         public DeviceRepository()
         {
             _devices = new List<Device>();
@@ -17,6 +18,7 @@ namespace Jendamark_Automation.Domain
         {
             try
             {
+                device.DeviceID = Id++;
                 _devices.Add(device);
             }
             catch (Exception e)

@@ -30,7 +30,6 @@ namespace Jendamark_Automation
         {
             _devicesRepository.AddNewDevice(new Device
             {
-                DeviceID = _devicesRepository.List().Count + 1,
                 DeviceType = (Enums.DeviceType)DeviceTypes,
                 Name = Name
             });
@@ -42,10 +41,16 @@ namespace Jendamark_Automation
         {
             _operationRepository.AddOperation(new Operation
             {
-                OperationID = _operationRepository.List().Count+1,
                 Name = Name,
                 Device = _devicesRepository.GetDeviceById(Devices)
             });
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult DeleteOperationById(int Id)
+        {
+            _operationRepository.RemoveOperation(Id);
             return RedirectToAction("Index");
         }
     }

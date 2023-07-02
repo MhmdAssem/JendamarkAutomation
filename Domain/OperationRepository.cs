@@ -9,6 +9,7 @@ namespace Jendamark_Automation.Domain
     public class OperationRepository: IOperationRepository
     {
         private List<Operation> _operations;
+        public static int Id = 0;
         public OperationRepository()
         {
             _operations = new List<Operation>();
@@ -18,6 +19,7 @@ namespace Jendamark_Automation.Domain
         {
             try
             {
+                opereation.OperationID = Id++;
                 _operations.Add(opereation);
             }
             catch (Exception e)
